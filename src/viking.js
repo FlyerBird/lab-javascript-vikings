@@ -1,63 +1,65 @@
 // Soldier
-
 class Soldier {
   constructor(health, strength) {
     this.health = health;
     this.strength = strength;
   }
-
   attack() {
-     return this.strength;
+    return this.strength;
   }
-
   receiveDamage(damage) {
-      this.health - damage
+    this.health -= damage;
   }
 }
-
 // Viking
 class Viking extends Soldier {
   constructor(name, health, strength) {
+    super(name, health, strength);
     this.name = name;
-    super(health, strength);
+    this.health = health;
+    this.strength = strength;
+  }
+  
+  receiveDamage(damage) {
+    this.health -= damage;
+    if (this.health > 0) {
+      return `${this.name} has received ${damage} points of damage`;
+    } else {
+      return `${this.name} has died in act of combat`
     }
-
-    receiveDamage(damage){
-      this.health - damage
-      if (Viking === "ALive"){
-        return "A Saxon has received DAMAGE points of damage"
-      }
-    }
-
-    battleCry(){
-       return "Odin Owns You All!"
-    }
- 
+  }
+  battleCry(){
+    return "Odin Owns You All!"
+  }
 }
 
 // Saxon
 class Saxon extends Soldier {
-
-  receiveDamage(damage){
-    this.health - damage
-    if (Saxon === "ALive"){
-      return "NAME has received DAMAGE points of damage"
+  constructor(health,strength){
+    super(health,strength)
+  }
+  receiveDamage(damage) {
+    this.health -= damage;
+    if (this.health > 0) {
+      return `A Saxon has received ${damage} points of damage`;
+    } else {
+      return "A Saxon has died in combat"
     }
   }
 }
 
-// War
-class War {}
+const testingViking = new Viking('Viking1', 100, 200);
+console.log(testingViking.receiveDamage(99));
+
+const testingSaxon = new Saxon (100,150);
+console.log(testingSaxon.receiveDamage(120));
+
+
+// // The following is required to make unit tests work.
+// /* Environment setup. Do not modify the below code. */
+// if (typeof module !== 'undefined') {
+//   module.exports = { Soldier, Viking, Saxon, War };
+// }
 
 
 
-
-const Charlie = new Soldier ("100","100");
-console.log (Charlie);
-
-
-// The following is required to make unit tests work.
-/* Environment setup. Do not modify the below code. */
-if (typeof module !== 'undefined') {
-  module.exports = { Soldier, Viking, Saxon, War };
-}
